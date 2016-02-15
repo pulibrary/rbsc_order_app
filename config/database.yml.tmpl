@@ -33,9 +33,9 @@ production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: my_database
+  database: <%= ENV["ORDER_APP_DB"] %>
   pool: 5
-  username: my_user
-  password: 
+  username: <%= ENV["ORDER_APP_DB_USER"] %>
+  password: <%= ENV["ORDER_APP_DB_PWD"] %>
   socket: /tmp/mysql.sock
 
