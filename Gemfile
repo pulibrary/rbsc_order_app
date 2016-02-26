@@ -7,6 +7,15 @@ gem 'rails', '4.2.5.1'
 # follow the JSON API spec
 gem 'jsonapi-resources'
 
+# pull latest master branch of pul_assets repo
+gem 'pul-assets', :git => 'git@github.com:pulibrary/pul_assets.git', :branch => :master
+
+gem 'normalize-rails'
+gem 'susy'
+gem 'breakpoint'
+gem 'bourbon'
+gem 'jquery-tablesorter'
+
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use SCSS for stylesheets
