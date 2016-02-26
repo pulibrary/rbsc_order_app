@@ -1,0 +1,61 @@
+<%= form_for(@manifest) do |f| %>
+  <% if @manifest.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@manifest.errors.count, "error") %> prohibited this manifest from being saved:</h2>
+
+      <ul>
+      <% @manifest.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :call_num %><br>
+    <%= f.text_field :call_num %>
+  </div>
+  <div class="field">
+    <%= f.label :label %><br>
+    <%= f.text_field :label %>
+  </div>
+  <div class="field">
+    <%= f.label :memo %><br>
+    <%= f.text_area :memo %>
+  </div>
+  <div class="field">
+    <%= f.label :url %><br>
+    <%= f.text_field :url %>
+  </div>
+  <div class="field">
+    <%= f.label :uri %><br>
+    <%= f.text_field :uri %>
+  </div>
+  <div class="field">
+    <%= f.label :item_qty %><br>
+    <%= f.number_field :item_qty %>
+  </div>
+  <div class="field">
+    <%= f.label :division %><br>
+    <%= f.number_field :division %>
+  </div>
+  <div class="field">
+    <%= f.label :format %><br>
+    <%= f.number_field :format %>
+  </div>
+  <div class="field">
+    <%= f.label :permissions %><br>
+    <%= f.number_field :permissions %>
+  </div>
+  <div class="field">
+    <%= f.label :start_item %><br>
+    <%= f.number_field :start_item %>
+  </div>
+  <div class="field">
+    <%= f.label :end_item %><br>
+    <%= f.number_field :end_item %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -11,7 +11,147 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160214072806) do
+ActiveRecord::Schema.define(version: 20160226005602) do
+
+  create_table "formats", force: :cascade do |t|
+    t.string   "media",      limit: 255
+    t.string   "size",       limit: 255
+    t.string   "filetype",   limit: 255
+    t.string   "fund_code",  limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.string   "label",      limit: 255
+    t.string   "url",        limit: 255
+    t.string   "uri",        limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "manifest",   limit: 4
+  end
+
+  create_table "manifests", force: :cascade do |t|
+    t.string   "call_num",    limit: 255
+    t.string   "label",       limit: 255
+    t.text     "memo",        limit: 65535
+    t.string   "url",         limit: 255
+    t.string   "uri",         limit: 255
+    t.integer  "item_qty",    limit: 4
+    t.integer  "division",    limit: 4
+    t.integer  "format",      limit: 4
+    t.integer  "permissions", limit: 4
+    t.integer  "start_item",  limit: 4
+    t.integer  "end_item",    limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  create_table "manifests_orders", id: false, force: :cascade do |t|
+    t.integer "manifest_id", limit: 4, null: false
+    t.integer "order_id",    limit: 4, null: false
+  end
+
+  create_table "order_histories", force: :cascade do |t|
+    t.integer  "order_id",             limit: 4
+    t.datetime "submitted"
+    t.datetime "last_update"
+    t.text     "memo",                 limit: 65535
+    t.string   "shipping_fname",       limit: 255
+    t.string   "shipping_lname",       limit: 255
+    t.string   "shipping_org",         limit: 255
+    t.string   "shipping_address1",    limit: 255
+    t.string   "shipping_address2",    limit: 255
+    t.string   "shipping_city",        limit: 255
+    t.string   "shipping_postal_code", limit: 255
+    t.string   "shipping_country",     limit: 255
+    t.string   "shipping_phone",       limit: 255
+    t.string   "shipping_email",       limit: 255
+    t.string   "payment_fname",        limit: 255
+    t.string   "payment_lname",        limit: 255
+    t.string   "payment_org",          limit: 255
+    t.string   "payment_address1",     limit: 255
+    t.string   "payment_address2",     limit: 255
+    t.string   "payment_city",         limit: 255
+    t.string   "payment_postal_code",  limit: 255
+    t.string   "payment_country",      limit: 255
+    t.string   "payment_phone",        limit: 255
+    t.string   "payment_email",        limit: 255
+    t.string   "shipping_method",      limit: 255
+    t.decimal  "shipping_cost",                      precision: 8, scale: 2
+    t.string   "patron_netid",         limit: 255
+    t.string   "patron_aeonid",        limit: 255
+    t.string   "gateway_confirm_num",  limit: 255
+    t.boolean  "agree_to_terms"
+    t.decimal  "amt_paid",                           precision: 8, scale: 2
+    t.decimal  "amt_due",                            precision: 8, scale: 2
+    t.integer  "discount_percent",     limit: 4
+    t.string   "patron_ip_address",    limit: 255
+    t.integer  "status",               limit: 4
+    t.datetime "created_at",                                                 null: false
+    t.datetime "updated_at",                                                 null: false
+  end
+
+  add_index "order_histories", ["order_id"], name: "index_order_histories_on_order_id", using: :btree
+  add_index "order_histories", ["status"], name: "index_order_histories_on_status", using: :btree
+
+  create_table "orders", force: :cascade do |t|
+    t.datetime "submitted"
+    t.datetime "last_update"
+    t.text     "memo",                 limit: 65535
+    t.string   "shipping_fname",       limit: 255
+    t.string   "shipping_lname",       limit: 255
+    t.string   "shipping_org",         limit: 255
+    t.string   "shipping_address1",    limit: 255
+    t.string   "shipping_address2",    limit: 255
+    t.string   "shipping_city",        limit: 255
+    t.string   "shipping_postal_code", limit: 255
+    t.string   "shipping_country",     limit: 255
+    t.string   "shipping_phone",       limit: 255
+    t.string   "shipping_email",       limit: 255
+    t.string   "payment_fname",        limit: 255
+    t.string   "payment_lname",        limit: 255
+    t.string   "payment_org",          limit: 255
+    t.string   "payment_address1",     limit: 255
+    t.string   "payment_address2",     limit: 255
+    t.string   "payment_city",         limit: 255
+    t.string   "payment_postal_code",  limit: 255
+    t.string   "payment_country",      limit: 255
+    t.string   "payment_phone",        limit: 255
+    t.string   "payment_email",        limit: 255
+    t.string   "shipping_method",      limit: 255
+    t.decimal  "shipping_cost",                      precision: 8, scale: 2
+    t.string   "patron_netid",         limit: 255
+    t.string   "patron_aeonid",        limit: 255
+    t.string   "gateway_confirm_num",  limit: 255
+    t.boolean  "agree_to_terms"
+    t.decimal  "amt_paid",                           precision: 8, scale: 2
+    t.decimal  "amt_due",                            precision: 8, scale: 2
+    t.integer  "discount_percent",     limit: 4
+    t.string   "patron_ip_address",    limit: 255
+    t.integer  "status",               limit: 4
+    t.datetime "created_at",                                                 null: false
+    t.datetime "updated_at",                                                 null: false
+    t.boolean  "rush"
+    t.string   "accesscode",           limit: 255
+  end
+
+  add_index "orders", ["status"], name: "index_orders_on_status", using: :btree
+
+  create_table "permissions", force: :cascade do |t|
+    t.string   "label",       limit: 255
+    t.text     "description", limit: 65535
+    t.decimal  "price",                     precision: 10
+    t.string   "fund_code",   limit: 255
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+  end
+
+  create_table "statuses", force: :cascade do |t|
+    t.string   "label",      limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -31,4 +171,5 @@ ActiveRecord::Schema.define(version: 20160214072806) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "order_histories", "orders"
 end

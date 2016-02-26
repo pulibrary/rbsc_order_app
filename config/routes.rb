@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  resources :manifests
+  resources :items
+  resources :formats
+  resources :permissions
+  resources :order_histories
+  resources :statuses
+  resources :orders
   devise_for :users
   root 'high_voltage/pages#show', id: 'about'
   # The priority is based upon order of creation: first created -> highest priority.
