@@ -11,7 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160226005602) do
+ActiveRecord::Schema.define(version: 20160226155316) do
+
+  create_table "carts", force: :cascade do |t|
+    t.integer  "manifest",     limit: 4
+    t.string   "session",      limit: 255
+    t.integer  "qty",          limit: 4
+    t.decimal  "price",                    precision: 10
+    t.datetime "date_created"
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+  end
+
+  create_table "divisions", force: :cascade do |t|
+    t.string   "label",      limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "divisions_users", id: false, force: :cascade do |t|
+    t.integer "division_id", limit: 4, null: false
+    t.integer "user_id",     limit: 4, null: false
+    t.boolean "can_approve"
+  end
 
   create_table "formats", force: :cascade do |t|
     t.string   "media",      limit: 255
@@ -37,7 +59,6 @@ ActiveRecord::Schema.define(version: 20160226005602) do
     t.text     "memo",        limit: 65535
     t.string   "url",         limit: 255
     t.string   "uri",         limit: 255
-    t.integer  "item_qty",    limit: 4
     t.integer  "division",    limit: 4
     t.integer  "format",      limit: 4
     t.integer  "permissions", limit: 4
@@ -45,11 +66,18 @@ ActiveRecord::Schema.define(version: 20160226005602) do
     t.integer  "end_item",    limit: 4
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.integer  "item_qty",    limit: 4
+    t.integer  "qty",         limit: 4
   end
 
   create_table "manifests_orders", id: false, force: :cascade do |t|
-    t.integer "manifest_id", limit: 4, null: false
-    t.integer "order_id",    limit: 4, null: false
+    t.integer  "manifest_id",  limit: 4,                null: false
+    t.integer  "order_id",     limit: 4,                null: false
+    t.integer  "qty",          limit: 4
+    t.decimal  "price",                  precision: 10
+    t.integer  "approved_by",  limit: 4
+    t.datetime "approved_on"
+    t.datetime "date_created"
   end
 
   create_table "order_histories", force: :cascade do |t|
@@ -166,6 +194,7 @@ ActiveRecord::Schema.define(version: 20160226005602) do
     t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
+    t.boolean  "is_staff"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

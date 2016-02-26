@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Manifest:</strong>
+  <%= @cart.manifest %>
+</p>
+
+<p>
+  <strong>Session:</strong>
+  <%= @cart.session %>
+</p>
+
+<p>
+  <strong>Qty:</strong>
+  <%= @cart.qty %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @cart.price %>
+</p>
+
+<p>
+  <strong>Date created:</strong>
+  <%= @cart.date_created %>
+</p>
+
+<%= link_to 'Edit', edit_cart_path(@cart) %> |
+<%= link_to 'Back', carts_path %>
