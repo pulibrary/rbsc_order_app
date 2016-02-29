@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :divisions
+  resources :carts
   resources :manifests
   resources :items
   resources :formats
