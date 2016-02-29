@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160226155316) do
+ActiveRecord::Schema.define(version: 20160229220652) do
 
   create_table "carts", force: :cascade do |t|
     t.integer  "manifest",     limit: 4
@@ -53,6 +53,21 @@ ActiveRecord::Schema.define(version: 20160226155316) do
     t.integer  "manifest",   limit: 4
   end
 
+  create_table "line_items", force: :cascade do |t|
+    t.integer  "manifest_id",  limit: 4
+    t.integer  "order_id",     limit: 4
+    t.integer  "qty",          limit: 4
+    t.decimal  "price",                  precision: 10
+    t.integer  "approved_by",  limit: 4
+    t.datetime "approved_on"
+    t.datetime "date_created"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+  end
+
+  add_index "line_items", ["manifest_id"], name: "index_line_items_on_manifest_id", using: :btree
+  add_index "line_items", ["order_id"], name: "index_line_items_on_order_id", using: :btree
+
   create_table "manifests", force: :cascade do |t|
     t.string   "call_num",    limit: 255
     t.string   "label",       limit: 255
@@ -68,16 +83,6 @@ ActiveRecord::Schema.define(version: 20160226155316) do
     t.datetime "updated_at",                null: false
     t.integer  "item_qty",    limit: 4
     t.integer  "qty",         limit: 4
-  end
-
-  create_table "manifests_orders", id: false, force: :cascade do |t|
-    t.integer  "manifest_id",  limit: 4,                null: false
-    t.integer  "order_id",     limit: 4,                null: false
-    t.integer  "qty",          limit: 4
-    t.decimal  "price",                  precision: 10
-    t.integer  "approved_by",  limit: 4
-    t.datetime "approved_on"
-    t.datetime "date_created"
   end
 
   create_table "order_histories", force: :cascade do |t|
@@ -200,5 +205,7 @@ ActiveRecord::Schema.define(version: 20160226155316) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "line_items", "manifests"
+  add_foreign_key "line_items", "orders"
   add_foreign_key "order_histories", "orders"
 end
