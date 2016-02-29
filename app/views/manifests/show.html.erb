@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Call num:</strong>
+  <%= @manifest.call_num %>
+</p>
+
+<p>
+  <strong>Label:</strong>
+  <%= @manifest.label %>
+</p>
+
+<p>
+  <strong>Memo:</strong>
+  <%= @manifest.memo %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @manifest.url %>
+</p>
+
+<p>
+  <strong>Uri:</strong>
+  <%= @manifest.uri %>
+</p>
+
+<p>
+  <strong>Item qty:</strong>
+  <%= @manifest.item_qty %>
+</p>
+
+<p>
+  <strong>Division:</strong>
+  <%= @manifest.division %>
+</p>
+
+<p>
+  <strong>Format:</strong>
+  <%= @manifest.format %>
+</p>
+
+<p>
+  <strong>Permissions:</strong>
+  <%= @manifest.permissions %>
+</p>
+
+<p>
+  <strong>Start item:</strong>
+  <%= @manifest.start_item %>
+</p>
+
+<p>
+  <strong>End item:</strong>
+  <%= @manifest.end_item %>
+</p>
+
+<%= link_to 'Edit', edit_manifest_path(@manifest) %> |
+<%= link_to 'Back', manifests_path %>

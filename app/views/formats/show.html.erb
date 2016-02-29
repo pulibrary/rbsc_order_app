@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Media:</strong>
+  <%= @format.media %>
+</p>
+
+<p>
+  <strong>Size:</strong>
+  <%= @format.size %>
+</p>
+
+<p>
+  <strong>Filetype:</strong>
+  <%= @format.filetype %>
+</p>
+
+<p>
+  <strong>Fund code:</strong>
+  <%= @format.fund_code %>
+</p>
+
+<%= link_to 'Edit', edit_format_path(@format) %> |
+<%= link_to 'Back', formats_path %>
